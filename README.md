@@ -16,4 +16,7 @@ This will be the first DevOPS project from scratch, the plan is to create a simp
     $ ssh-keygen -t ed25519 -C "xxxxxxdin@outXXX", cat the output/hash , paste it to github, created the ssh key, now we can pull and push easily !
     ```
 
-4) 
+4) using  VScode, I tested the docker extension to automatically create a dockerfile.yml
+here is the output !
+```
+From

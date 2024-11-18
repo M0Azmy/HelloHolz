@@ -19,4 +19,29 @@ This will be the first DevOPS project from scratch, the plan is to create a simp
 4) using  VScode, I tested the docker extension to automatically create a dockerfile.yml
 here is the output !
 ```
-From
+FROM node:lts-alpine
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install --production --silent && mv node_modules ../
+COPY . .
+EXPOSE 3000
+RUN chown -R node /usr/src/app
+USER node
+CMD ["npm", "start"]
+```
+
+--- For a reason, the above code was not working as expected, tried to simplify things :
+```
+FROM node:lts-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . . 
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
+- also the const home in index.js ---> '0,0,0,0' because localhost was not working from the container
+
+
+5)

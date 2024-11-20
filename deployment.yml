@@ -1,0 +1,23 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: hello-holz-rc
+    labels:
+      app: hello-holz
+      type: proj1
+
+  spec:
+    template:
+      metadata:
+        name: hello-holz-prod 
+        labels:
+          app: hello-holz
+          type: proj1
+      spec:
+        containers:
+          - name: hol-image
+            image: mohazmy/hello-holz
+    replicas: 2
+    selector:
+      matchLabels:
+        type: proj1

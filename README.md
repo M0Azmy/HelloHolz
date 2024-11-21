@@ -43,5 +43,24 @@ CMD ["node", "index.js"]
 ```
 - also the const home in index.js ---> '0,0,0,0' because localhost was not working from the container
 
+5) Created the final docker image ( hello-holz )
 
-5)
+5) now I want to use kubernetes, installed minikube
+6) Trying to upload the image to dockerhub, keeps saying "unauthorized "
+7) "docker login" was already done
+8) $ docker tag hello-holz mohazmy/hello-holz 
+9) $ docker tag hello-holz mohazmy/hello-holz
+10) ( $  kubectl apply -f deployment.yml ) because i ran it before fixing the docker image issue
+20) git push to update github repo
+21) now we make the ( service.yml ) so we can access our webpage
+*****
+*****
+NOTE 
+****
+****
+ Since we are using minikube, we need to run ( $ minikube tunnel ) to have an ip 
+
+ ************************************
+
+
+ 22)

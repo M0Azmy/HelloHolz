@@ -120,4 +120,8 @@ NOTE
 23) fixed credintials etc.. , added echo to the end of each stage, it works fine.
 24) Jenkins will react to changes in SCM, it will check every 2 mins ( H/2 * * * * ) 
 25) modified github repo, added "V3" to the webpage message
-26) 
+26) I edited the index.js file, changed the character to  V3 , Jenkins automatically grabbed the changes, tested, worked.
+
+
+
+

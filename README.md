@@ -2,7 +2,7 @@
 1st project !
 
 ********************************************************************************************************************************************************************
-This will be the first DevOPS project from scratch, the plan is to create a simple webpage, containerize it, use k8s, jenkins , and might add monitoring tools later
+This will be the first DevOPS project from scratch, the plan is to create a simple webpage, containerize it, use k8s, jenkins to CI/CD if any changes in github repo, and might add monitoring tools later
 ********************************************************************************************************************************************************************
 1) Using Gemini :
 - I created ( index.js , package.json ) files to have a simple webpage saying " Hello Holz ", http, port 3000.
@@ -66,4 +66,58 @@ NOTE
  22) Jenkins TIME
 ######################
 
-22) 
+22)  created the pipeline, with this script :
+```
+    pipeline {
+        agent any
+
+        stages {
+            stage('Clone Repository') {
+                steps {
+                    git branch: 'main', url: 'https://github.com/M0Azmy/HelloHolz.git'
+                    echo " Clone ended"
+                }
+            }
+
+            stage('Build Docker Image') {
+                steps {
+                    script {
+                        docker.build("mohazmy/hello-holz:latest")
+                        echo " building docker image done !! "
+
+                    }
+                }
+            }
+
+            stage('Push to DockerHub') {
+                steps {
+                    withDockerRegistry([credentialsId: 'dockerhub-creds', url: 'https://index.docker.io/v1/']) {
+                        script {
+                            docker.image("mohazmy/hello-holz:latest").push()
+                            echo " Pushed to dockerhub repo !! "
+                        }
+                    }
+                }
+            }
+
+            stage('Deploy to Kubernetes') {
+                steps {
+                    withCredentials([file(credentialsId: 'kubeconfig-secret', variable: 'KUBECONFIG')]) {
+                        sh '''
+                        export KUBECONFIG=$KUBECONFIG
+                        kubectl apply -f deployment.yml --validate=false
+                        kubectl apply -f service.yml --validate=false
+                        '''
+
+                        echo " using minikube, applied deployment and service "
+                    }
+                }
+            }
+        }
+    }
+```
+
+23) fixed credintials etc.. , added echo to the end of each stage, it works fine.
+24) Jenkins will react to changes in SCM, it will check every 2 mins ( H/2 * * * * ) 
+25) modified github repo, added "V3" to the webpage message
+26) 
